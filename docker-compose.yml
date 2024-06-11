@@ -1,4 +1,4 @@
-version: "3"
+name: radius
 
 services:
 
@@ -13,6 +13,9 @@ services:
       - MYSQL_ROOT_PASSWORD=radiusrootdbpw
     volumes:
       - "./data/mysql:/var/lib/mysql"
+
+    networks:
+      - radius
 
   radius:
     container_name: radius
@@ -37,6 +40,9 @@ services:
       - ./data/freeradius:/data
     # If you want to disable debug output, remove the command parameter
     command: -X
+
+    networks:
+      - radius
 
   radius-web:
     build: .
@@ -64,3 +70,10 @@ services:
 
     volumes:
       - ./data/daloradius:/data
+
+    networks:
+      - radius
+
+networks:
+  radius:
+    external: true

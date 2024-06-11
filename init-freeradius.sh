@@ -63,13 +63,7 @@ while ! mysqladmin ping -h"$MYSQL_HOST" --silent; do
 	sleep 20
 done
 
-INIT_LOCK=/data/.freeradius_init_done
-if test -f "$INIT_LOCK"; then
-	echo "Init lock file exists, skipping initial setup."
-else
-	init_freeradius
-	date > $INIT_LOCK
-fi
+init_freeradius
 
 DB_LOCK=/data/.db_init_done
 if test -f "$DB_LOCK"; then
